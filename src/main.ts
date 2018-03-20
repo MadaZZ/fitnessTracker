@@ -1,4 +1,4 @@
-import 'hammerjs';
+import 'hammerjs'; //Used for adding gestures to webapps
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 

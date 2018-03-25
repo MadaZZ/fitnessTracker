@@ -1,1 +1,19 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container >
+    <mat-sidenav #sideNav role="navigation">
+        <p>I'm a sidenav</p>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <div><button (click)="sideNav.toggle()">toggle</button></div>
+            <div>LOGO</div>
+            <div>
+                <a routerLink="/signup">Signup</a>
+                <a routerLink="/login">Login</a>
+                <a routerLink="/training">training</a>
+            </div>
+        </mat-toolbar>
+        <span>
+            <router-outlet></router-outlet>
+        </span>
+    </mat-sidenav-content>
+</mat-sidenav-container>

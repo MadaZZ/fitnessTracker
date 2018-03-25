@@ -8,9 +8,10 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
   hide=true;
   
-  submit(form: NgForm){
-    console.log(form); 
-  }
+  // submit(form: NgForm){
+  //   console.log(form); 
+  // }
+  
   constructor() { }
 
   ngOnInit() {

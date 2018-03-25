@@ -18,7 +18,8 @@ export class SignupComponent implements OnInit {
     this.minDate.setFullYear(this.minDate.getFullYear() - 100);
   }
   hide=true;
-  submit(form: NgForm){
-    console.log(form); 
-  }
+
+  // submit(form: NgForm){
+  //   console.log(form); 
+  // } 
 }

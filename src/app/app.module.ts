@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';//Imported to use animations
-import { MaterialModule } from './material.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { MaterialModule } from './material.module';// CONTAINS ALL MATERIAL MODULES 
+
+import { FlexLayoutModule } from '@angular/flex-layout';//for using flexlayout
 import { FormsModule } from '@angular/forms'//to import reactive form
 
 import { AppComponent } from './app.component';

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -7,14 +9,17 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   hide=true;
-  
-  // submit(form: NgForm){
-  //   console.log(form); 
-  // }
-  
-  constructor() { }
+  constructor(private authser: AuthService) { }
 
   ngOnInit() {
   }
+
+  submit(form: NgForm){
+    this.authser.login({
+      email: form.value.email,
+      password : form.value.password
+    });
+  }
+  
 
 }

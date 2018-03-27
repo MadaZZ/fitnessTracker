@@ -1,17 +1,33 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+
+import { Subscription } from 'rxjs/Subscription';
+
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   //emitter to toggle side av on sandwich button click
   @Output() sideNavTog = new EventEmitter<void>();
-  constructor() { }
-  
+
+  constructor(private authser: AuthService) { }
+
+  isAuth : boolean = false;
+  authSubscription: Subscription; 
+
   ngOnInit() {
+    this.authSubscription = this.authser.authChange.subscribe( authStatus => {
+      this.isAuth = authStatus;
+    })
   }
+
+  ngOnDestroy(){
+    this.authSubscription.unsubscribe();
+  }
+
   toggleOnCLick(){
     this.sideNavTog.emit(); 
   }

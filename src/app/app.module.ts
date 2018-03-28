@@ -5,9 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';/
 import { MaterialModule } from './material.module';// CONTAINS ALL MATERIAL MODULES 
 
 import { FlexLayoutModule } from '@angular/flex-layout';//for using flexlayout
-import { FormsModule } from '@angular/forms';//to import reactive form
+import { FormsModule } from '@angular/forms'//to import reactive form
 
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './auth/auth.service'
 
 //All the components created are below
 import { AppComponent } from './app.component';

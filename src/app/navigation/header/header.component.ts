@@ -24,11 +24,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     })
   }
 
+  toggleOnCLick(){
+    this.sideNavTog.emit(); 
+  }
+
+  onLogout(){
+    this.authser.logout();
+  }
+
   ngOnDestroy(){
     this.authSubscription.unsubscribe();
   }
 
-  toggleOnCLick(){
-    this.sideNavTog.emit(); 
-  }
 }

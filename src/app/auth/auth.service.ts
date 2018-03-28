@@ -1,4 +1,5 @@
-import { Injectable,Output } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs/Subject';
@@ -14,7 +15,7 @@ export class AuthService {
       email: authdata.email,
       userId: Math.round(Math.random()*10000).toString() 
     };
-    this.authChange.next(true);
+    this.authSuccessfully();
   }
 
   login(authdata: AuthData ){
@@ -22,23 +23,34 @@ export class AuthService {
       email: authdata.email,
       userId: Math.round(Math.random()*10000).toString() 
     };
-    this.authChange.next(true);
+    this.authSuccessfully();
   }
 
   logout(){
     this.user = null;
     this.authChange.next(false);
+    this.router.navigate(['/login']);
   }
 
   //this method returns user not as an object but an array of its attributes
   //so that user credentials can't be changed by other parts of the app
-  getUser(){
+  getUser()
+  {
     return {...this.user};
   }
 
-  isAuth(){
+  isAuth()
+  {
     return this.user != null;
   }
-  constructor() { }
+
+  authSuccessfully()
+  {
+    this.authChange.next(true);
+    this.router.navigate(['/training']);
+  }
+  
+
+  constructor( private router: Router ) { }
 
 }

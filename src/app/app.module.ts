@@ -7,7 +7,8 @@ import { MaterialModule } from './material.module';// CONTAINS ALL MATERIAL MODU
 import { FlexLayoutModule } from '@angular/flex-layout';//for using flexlayout
 import { FormsModule } from '@angular/forms'//to import reactive form
 
-import { AuthService } from './auth/auth.service'
+import { AuthService } from './auth/auth.service';
+import { TrainingService } from './training/training.service'
 
 //All the components created are below
 import { AppComponent } from './app.component';
@@ -46,7 +47,10 @@ import { StopTrainingComponent } from './training/current-training/stop-training
     FlexLayoutModule,
     FormsModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    TrainingService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [StopTrainingComponent]//This component is not called by routing or diplayed in any other component so it has to be indicated to angular//Used in Dialog in current-excersise
 })

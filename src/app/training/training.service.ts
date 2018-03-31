@@ -26,6 +26,11 @@ export class TrainingService {
     this.exerciseChanged.next({...this.runningExcercise}); //returns running exercise in an araay format of its own
   }
 
+  getRunningExercise()
+  {
+    return {...this.runningExcercise};
+  }
+
   constructor() { }
 
 }

@@ -11,7 +11,6 @@ import { NgForm } from '@angular/forms';
 export class NewTrainingComponent implements OnInit {
   
   beginNewTraining(form: NgForm){
-    //this.trainingStart.emit();
     this.trainser.startExercise(form.value.exercise);
   }
   

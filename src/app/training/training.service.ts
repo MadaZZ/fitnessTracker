@@ -16,6 +16,10 @@ export class TrainingService {
   private runningExcercise: Exercise;
   private storedExercise: Exercise[] = [];
 
+  getStoredExercises(){
+    return this.storedExercise.slice();
+  }
+
   getAvailableExercises()
   {
     return this.availableExercises.slice();

@@ -14,7 +14,7 @@ export class TrainingService {
   ];
 
   private runningExcercise: Exercise;
-  private storedExercise: Exercise[];
+  private storedExercise: Exercise[] = [];
 
   getAvailableExercises()
   {
@@ -37,6 +37,7 @@ export class TrainingService {
       date: new Date(), 
       state: 'complete' 
     }); //Pushed object to array for past exercises
+    //console.log(this.storedExercise);
     this.runningExcercise = null;
     this.exerciseChanged.next(null);
   }
@@ -48,7 +49,7 @@ export class TrainingService {
       date: new Date(), 
       state: 'cancelled' 
     }); //Pushed object to array for past exercises
-    
+    //console.log(this.storedExercise); 
     this.runningExcercise = null;
     this.exerciseChanged.next(null);
   }

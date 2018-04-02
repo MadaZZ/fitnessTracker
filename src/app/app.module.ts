@@ -8,7 +8,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';//for using flexlayout
 import { FormsModule } from '@angular/forms'//to import reactive form
 
 import { AuthService } from './auth/auth.service';
-import { TrainingService } from './training/training.service'
+import { TrainingService } from './training/training.service';
+
+import { AngularFireModule } from 'angularfire2';//imported angularfire to connect to firebase
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from 'angularfire2/firestore';//importing firestore;
 
 //All the components created are below
 import { AppComponent } from './app.component';
@@ -45,7 +49,9 @@ import { StopTrainingComponent } from './training/current-training/stop-training
     MaterialModule,
     AppRoutingModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [
     AuthService,

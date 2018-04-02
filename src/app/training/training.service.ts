@@ -7,20 +7,26 @@ import { AngularFirestore } from 'angularfire2/firestore';
 @Injectable()
 export class TrainingService {
   exerciseChanged = new Subject<Exercise>();
-  
-  exercisesChanged = new Subject<Exercise[]>();
-  private availableExercises : Exercise[] = [];
+  exercisesChanged = new Subject<Exercise[]>(); //Gets the exercises that are already defined to show on new-training option
+  finishedExerciseChanged = new Subject<Exercise[]>(); //
 
+  private availableExercises : Exercise[] = [];
   private runningExcercise: Exercise;
-  private storedExercise: Exercise[] = [];
+  
 
   constructor( private db: AngularFirestore ) { }
 
   getStoredExercises(){
-    return this.storedExercise.slice();
+    this.db
+    .collection('finishedExercises')
+    .valueChanges() //--> Gives only values not the names
+    .subscribe( (exercises: Exercise[]) => {
+      //console.log(exercises);
+      this.finishedExerciseChanged.next(exercises);
+    })
   }
 
-  getAvailableExercises()
+  getAvailableExercises() //gets exercises 
   {
     this.db
     .collection('availableExercises')
@@ -74,7 +80,7 @@ export class TrainingService {
 
   //Function to add data to db
   private addDataToDatabase(exercise: Exercise){
-    this.db.collection('finishedExercise').add(exercise);
+    this.db.collection('finishedExercises').add(exercise);
   }
 
 }

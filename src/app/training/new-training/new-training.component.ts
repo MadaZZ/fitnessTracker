@@ -18,11 +18,15 @@ export class NewTrainingComponent implements OnInit {
     
   constructor( private trainser: TrainingService, private db: AngularFirestore ) { }
   
-  beginNewTraining(form: NgForm) {
+  
+  beginNewTraining(form: NgForm) 
+  {
     this.trainser.startExercise(form.value.exercise);
   }
 
-  ngOnInit() {
+  
+  ngOnInit() //Gets the list of exercises available to do
+  {
     this.exerciseSubs = this.trainser.exercisesChanged.subscribe( exercises => {
       this.exerciseList = exercises;
     });
@@ -32,7 +36,8 @@ export class NewTrainingComponent implements OnInit {
     // });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy() 
+  {
     this.exerciseSubs.unsubscribe();
   }
 

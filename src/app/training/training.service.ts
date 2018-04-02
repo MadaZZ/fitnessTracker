@@ -51,25 +51,30 @@ export class TrainingService {
   }
 
   completedTraining(){
-    this.storedExercise.push({...this.runningExcercise, 
+    this.addDataToDatabase({...this.runningExcercise, 
       date: new Date(), 
       state: 'complete' 
-    }); //Pushed object to array for past exercises
+    }); //Pushed object to function for adding data to db
     //console.log(this.storedExercise);
     this.runningExcercise = null;
     this.exerciseChanged.next(null);
   }
 
   cancelTraining(progress: number){
-    this.storedExercise.push({...this.runningExcercise, 
+    this.addDataToDatabase({...this.runningExcercise, 
       duration : this.runningExcercise.duration * (progress/100), 
       calories : this.runningExcercise.calories * (progress/100), 
       date: new Date(), 
       state: 'cancelled' 
-    }); //Pushed object to array for past exercises
+    }); //Pushed object to function for adding data to db
     //console.log(this.storedExercise); 
     this.runningExcercise = null;
     this.exerciseChanged.next(null);
+  }
+
+  //Function to add data to db
+  private addDataToDatabase(exercise: Exercise){
+    this.db.collection('finishedExercise').add(exercise);
   }
 
 }

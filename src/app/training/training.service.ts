@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Exercise } from './exercise.model';
 import { Subject } from 'rxjs/Subject';
+import { AngularFirestore } from 'angularfire2/firestore';
+//import { Observable } from 'rxjs';
 
 @Injectable()
 export class TrainingService {
   exerciseChanged = new Subject<Exercise>();
-
-  private availableExercises : Exercise[] = [
-    { id: 'crunches', name: 'Crunches', duration: 30, calories: 8 },
-    { id: 'touch-toes', name: 'Touch Toes', duration: 180, calories: 15 },
-    { id: 'side-lunges', name: 'Side Lunges', duration: 120, calories: 18 },
-    { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 }
-  ];
+  
+  exercisesChanged = new Subject<Exercise[]>();
+  private availableExercises : Exercise[] = [];
 
   private runningExcercise: Exercise;
   private storedExercise: Exercise[] = [];
+
+  constructor( private db: AngularFirestore ) { }
 
   getStoredExercises(){
     return this.storedExercise.slice();
@@ -22,7 +22,21 @@ export class TrainingService {
 
   getAvailableExercises()
   {
-    return this.availableExercises.slice();
+    this.db
+    .collection('availableExercises')
+    .snapshotChanges()// gives both values and names but values need to be extracted by using command        //.valueChanges() --> Gives only values not the names
+    .map(docData =>{
+      return docData.map(dochere =>{
+        return {
+          id: dochere.payload.doc.id,
+          ...dochere.payload.doc.data() // array of values
+        };
+      });
+    })
+    .subscribe( (exercises: Exercise[]) => {
+      this.availableExercises = exercises;
+      this.exercisesChanged.next([...this.availableExercises]);
+    })
   }
 
   startExercise(selectedId: string)
@@ -57,7 +71,5 @@ export class TrainingService {
     this.runningExcercise = null;
     this.exerciseChanged.next(null);
   }
-
-  constructor() { }
 
 }

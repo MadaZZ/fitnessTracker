@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { Exercise } from './exercise.model';
 import { Subject } from 'rxjs/Subject';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { Subscription } from 'rxjs';
 //import { Observable } from 'rxjs';
 
 @Injectable()
 export class TrainingService {
   exerciseChanged = new Subject<Exercise>();
   exercisesChanged = new Subject<Exercise[]>(); //Gets the exercises that are already defined to show on new-training option
-  finishedExerciseChanged = new Subject<Exercise[]>(); //
+  finishedExerciseChanged = new Subject<Exercise[]>(); //array of finished exercises
+
+  private fbsubs: Subscription[] = [];
 
   private availableExercises : Exercise[] = [];//array of exercises that can be selected
   private runningExcercise: Exercise;
@@ -16,20 +19,21 @@ export class TrainingService {
 
   constructor( private db: AngularFirestore ) { }
 
-  getStoredExercises()
-  { //Gets finished exercises
-    this.db
+  getStoredExercises(){ //Gets finished exercises
+    this.fbsubs.push(this.db
     .collection('finishedExercises')
     .valueChanges() //--> Gives only values not the names
     .subscribe( (exercises: Exercise[]) => {
       //console.log(exercises);
       this.finishedExerciseChanged.next(exercises);
-    })
+    }, err => {
+      console.log(err);
+    }));
   }
 
-  getAvailableExercises() //gets exercises 
+  getAvailableExercises() //gets exercises that are displayed in new
   {
-    this.db
+    this.fbsubs.push(this.db
     .collection('availableExercises')
     .snapshotChanges()// gives both values and names but values need to be extracted by using command        //.valueChanges() --> Gives only values not the names
     .map(docData =>{
@@ -43,7 +47,14 @@ export class TrainingService {
     .subscribe( (exercises: Exercise[]) => {
       this.availableExercises = exercises;
       this.exercisesChanged.next([...this.availableExercises]);
-    })
+    }, err => {
+      console.log(err);
+    }));
+  }
+
+  cancelSubscriptions() //pushed subscription in fbsubs are unsubscribed here due to the error it throws
+  {
+    this.fbsubs.forEach( sub => sub.unsubscribe());
   }
 
   startExercise(selectedId: string)

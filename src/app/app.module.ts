@@ -12,7 +12,8 @@ import { TrainingService } from './training/training.service';
 
 import { AngularFireModule } from 'angularfire2';//imported angularfire to connect to firebase
 import { environment } from '../environments/environment';
-import { AngularFirestoreModule } from 'angularfire2/firestore';//importing firestore;
+import { AngularFirestoreModule } from 'angularfire2/firestore';//importing firestore
+import { AngularFireAuthModule } from 'angularfire2/auth';//importing auth
 
 //All the components created are below
 import { AppComponent } from './app.component';
@@ -51,7 +52,8 @@ import { StopTrainingComponent } from './training/current-training/stop-training
     FlexLayoutModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [
     AuthService,

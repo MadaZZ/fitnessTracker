@@ -7,9 +7,12 @@ import { MaterialModule } from './material.module';// CONTAINS ALL MATERIAL MODU
 import { FlexLayoutModule } from '@angular/flex-layout';//for using flexlayout
 import { FormsModule } from '@angular/forms'//to import reactive form
 
+//services
 import { AuthService } from './auth/auth.service';
 import { TrainingService } from './training/training.service';
+import { UIService } from './shared/ui.service';
 
+//angularfire2 modules 
 import { AngularFireModule } from 'angularfire2';//imported angularfire to connect to firebase
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from 'angularfire2/firestore';//importing firestore
@@ -57,7 +60,9 @@ import { StopTrainingComponent } from './training/current-training/stop-training
   ],
   providers: [
     AuthService,
-    TrainingService
+    TrainingService,
+    UIService
+    
   ],
   bootstrap: [AppComponent],
   entryComponents: [StopTrainingComponent]//This component is not called by routing or diplayed in any other component so it has to be indicated to angular//Used in Dialog in current-excersise

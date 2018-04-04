@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import { AngularFireAuth } from 'angularfire2/auth'; 
 import { TrainingService } from '../training/training.service';
 import { MatSnackBar } from '@angular/material';// to add snackbar
+import { UIService } from '../shared/ui.service';
 
 @Injectable()
 export class AuthService {
@@ -19,19 +20,23 @@ export class AuthService {
     private router: Router,
     private afauth: AngularFireAuth, 
     private trainSer: TrainingService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private uiSer: UIService
    ) { }
   
   registerUser(authdata: AuthData)
   {
+    this.uiSer.loadingStateChange.next(true);
     this.afauth
     .auth.createUserWithEmailAndPassword(
       authdata.email, 
       authdata.password
     ).then(res => {
         console.log(res);
+        this.uiSer.loadingStateChange.next(false);
       })
       .catch( err=> {
+        this.uiSer.loadingStateChange.next(false);
         this.snackbar.open(err.message, 'Dismiss', {
           duration: 4000
         })
@@ -40,11 +45,14 @@ export class AuthService {
 
   login(authdata: AuthData )
   {
+    this.uiSer.loadingStateChange.next(true);
     this.afauth
     .auth.signInWithEmailAndPassword(authdata.email, authdata.password).then(res => {
-      console.log(res);
+      //console.log(res);
+      this.uiSer.loadingStateChange.next(false);
     })
     .catch( err=> {
+      this.uiSer.loadingStateChange.next(false);
       this.snackbar.open(err.message, 'Dismiss', {
         duration: 4000
       })

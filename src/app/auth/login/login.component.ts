@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { UIService } from '../../shared/ui.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-login',
@@ -8,17 +10,34 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  hide=true;
-  constructor(private authser: AuthService) { }
+  hide=true; // For hinding and showing the password on clicking the icon
+  isLoading = false;
 
-  ngOnInit() {
+  private loadingSub: Subscription;
+
+  constructor(
+    private authser: AuthService,
+    private uiSer: UIService
+  ) { }
+
+  ngOnInit()
+  {
+    this.loadingSub  = this.uiSer.loadingStateChange.subscribe( isloading => {
+      this.isLoading = isloading;
+    });
   }
 
-  submit(form: NgForm){
+  submit(form: NgForm)
+  {
     this.authser.login({
       email: form.value.email,
       password : form.value.password
     });
+  }
+
+  ngOnDestroy(): void
+  {
+    this.loadingSub.unsubscribe();
   }
   
 

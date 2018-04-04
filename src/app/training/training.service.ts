@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Subscription } from 'rxjs';
 //import { Observable } from 'rxjs';
+import { UIService } from '../shared/ui.service';
 
 @Injectable()
 export class TrainingService {
@@ -17,22 +18,29 @@ export class TrainingService {
   private runningExcercise: Exercise;
   
 
-  constructor( private db: AngularFirestore ) { }
+  constructor( 
+    private db: AngularFirestore,
+    private uiSer: UIService
+   ) { }
 
   getStoredExercises(){ //Gets finished exercises
+    this.uiSer.loadingStateChange.next(true);
     this.fbsubs.push(this.db
     .collection('finishedExercises')
     .valueChanges() //--> Gives only values not the names
     .subscribe( (exercises: Exercise[]) => {
       //console.log(exercises);
       this.finishedExerciseChanged.next(exercises);
+      this.uiSer.loadingStateChange.next(false);
     }, err => {
-      console.log(err);
+      this.uiSer.loadingStateChange.next(false);
+      //console.log(err);
     }));
   }
 
   getAvailableExercises() //gets exercises that are displayed in new
   {
+    this.uiSer.loadingStateChange.next(true);
     this.fbsubs.push(this.db
     .collection('availableExercises')
     .snapshotChanges()// gives both values and names but values need to be extracted by using command        //.valueChanges() --> Gives only values not the names
@@ -47,8 +55,10 @@ export class TrainingService {
     .subscribe( (exercises: Exercise[]) => {
       this.availableExercises = exercises;
       this.exercisesChanged.next([...this.availableExercises]);
+      this.uiSer.loadingStateChange.next(false);
     }, err => {
-      console.log(err);
+      this.uiSer.loadingStateChange.next(false);
+      //console.log(err);
     }));
   }
 

@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable, Subscription } from 'rxjs'; 
 import { map } from 'rxjs/operators';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-new-training',
@@ -15,8 +16,15 @@ export class NewTrainingComponent implements OnInit {
 
   exerciseList: Exercise[];
   exerciseSubs: Subscription;
+  loadingSubs: Subscription;
+
+  isLoading = false;
     
-  constructor( private trainser: TrainingService, private db: AngularFirestore ) { }
+  constructor(
+    private trainser: TrainingService,
+    private db: AngularFirestore,
+    private uiSer: UIService
+   ) { }
   
   
   beginNewTraining(form: NgForm) 
@@ -27,6 +35,10 @@ export class NewTrainingComponent implements OnInit {
   
   ngOnInit() //Gets the list of exercises available to do
   {
+    this.loadingSubs = this.uiSer.loadingStateChange.subscribe( isloading =>{
+      this.isLoading = isloading;
+    });
+
     this.exerciseSubs = this.trainser.exercisesChanged.subscribe( exercises => {
       this.exerciseList = exercises;
     });
@@ -39,6 +51,7 @@ export class NewTrainingComponent implements OnInit {
   ngOnDestroy() 
   {
     this.exerciseSubs.unsubscribe();
+    this.loadingSubs.unsubscribe();
   }
 
 }

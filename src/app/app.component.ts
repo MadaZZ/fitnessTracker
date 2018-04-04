@@ -13,6 +13,6 @@ export class AppComponent {
 
   ngOnInit()
   {
-    this.authSer.initAuthListener();  
+    this.authSer.initAuthListener();  // This calls the authlistener which verifies auth state to allow acces or not
   }
 }

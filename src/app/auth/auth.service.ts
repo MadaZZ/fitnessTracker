@@ -5,7 +5,7 @@ import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs/Subject';
 import { AngularFireAuth } from 'angularfire2/auth'; 
 import { TrainingService } from '../training/training.service';
-import { MatSnackBar } from '@angular/material';// to add snackbar
+//import { MatSnackBar } from '@angular/material';// to add snackbar //Using in uiservice
 import { UIService } from '../shared/ui.service';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class AuthService {
     private router: Router,
     private afauth: AngularFireAuth, 
     private trainSer: TrainingService,
-    private snackbar: MatSnackBar,
+   // private snackbar: MatSnackBar, //Using in uiservice
     private uiSer: UIService
    ) { }
   
@@ -37,9 +37,7 @@ export class AuthService {
       })
       .catch( err=> {
         this.uiSer.loadingStateChange.next(false);
-        this.snackbar.open(err.message, 'Dismiss', {
-          duration: 4000
-        })
+        this.uiSer.showSnackbar(err.message, 'Dismiss', 4000);
       });
   }
 
@@ -53,9 +51,7 @@ export class AuthService {
     })
     .catch( err=> {
       this.uiSer.loadingStateChange.next(false);
-      this.snackbar.open(err.message, 'Dismiss', {
-        duration: 4000
-      })
+      this.uiSer.showSnackbar(err.message, 'Dismiss', 4000);
     });
   }
   

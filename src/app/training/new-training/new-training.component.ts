@@ -54,4 +54,9 @@ export class NewTrainingComponent implements OnInit {
     this.loadingSubs.unsubscribe();
   }
 
+  retry()
+  {
+    this.trainser.getAvailableExercises();
+  }
+
 }

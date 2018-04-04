@@ -34,6 +34,7 @@ export class TrainingService {
       this.uiSer.loadingStateChange.next(false);
     }, err => {
       this.uiSer.loadingStateChange.next(false);
+      this.uiSer.showSnackbar(err.message, null, 4000)
       //console.log(err);
     }));
   }
@@ -45,6 +46,7 @@ export class TrainingService {
     .collection('availableExercises')
     .snapshotChanges()// gives both values and names but values need to be extracted by using command        //.valueChanges() --> Gives only values not the names
     .map(docData =>{
+      //throw (Error())
       return docData.map(dochere =>{
         return {
           id: dochere.payload.doc.id,
@@ -58,6 +60,8 @@ export class TrainingService {
       this.uiSer.loadingStateChange.next(false);
     }, err => {
       this.uiSer.loadingStateChange.next(false);
+      this.uiSer.showSnackbar('Data could not be fetched from the database', 'Dismiss', 4000);
+      this.exercisesChanged.next(null);
       //console.log(err);
     }));
   }

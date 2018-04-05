@@ -1,23 +1,13 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 
-import { MaterialModule } from '../material.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { SharedModule } from '../shared/shared.module'; //contains all the requirements
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    FlexLayoutModule,
-    MaterialModule
-    
-  ],
-  exports: [
-    FormsModule
+    SharedModule
   ],
   declarations: [
     SignupComponent,

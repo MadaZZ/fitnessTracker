@@ -11,7 +11,7 @@ const routes : Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'training', loadChildren:'./training/training.module#TrainingModule' }
+  { path: 'training', loadChildren:'./training/training.module#TrainingModule', canLoad: [AuthGuard] }
 ];
 
 @NgModule({

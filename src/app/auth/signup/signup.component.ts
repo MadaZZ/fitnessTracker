@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class SignupComponent implements OnInit, OnDestroy {
   maxDate;
   minDate;
+  hide=true;
 
   isLoading = false;
   loadSubs: Subscription;
@@ -31,7 +32,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.minDate = new Date();
     this.minDate.setFullYear(this.minDate.getFullYear() - 100);
   }
-  hide=true;
 
   submit(form : NgForm){
     this.authser.registerUser({
@@ -40,11 +40,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy(): void {
-    this.loadSubs.unsubscribe();
+  ngOnDestroy(): void 
+  {
+    if(this.loadSubs)
+    {
+      this.loadSubs.unsubscribe();
+    }
   }
 
-  // submit(form: NgForm){
-  //   console.log(form); 
-  // } 
 }

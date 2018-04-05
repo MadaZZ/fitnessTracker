@@ -31,13 +31,9 @@ export class PastTrainingComponent implements OnInit, AfterViewInit {
 
   ngOnInit() 
   {
-    // this.loadingSubs = this.uiSer.loadingStateChange.subscribe( isloading =>{
-    //   this.isLoading = isloading;
-    // });
-
     this.exerciseSubs = this.trainser.finishedExerciseChanged.subscribe( (exercises: Exercise[]) => {
        this.dataSource.data = exercises;
-      //console.log(this.dataSource.data);
+       //console.log(this.dataSource.data);
     });
     //console.log(this.dataSource.data);
     this.trainser.getStoredExercises();
@@ -58,8 +54,11 @@ export class PastTrainingComponent implements OnInit, AfterViewInit {
 
   ngOnDestroy() 
   {
-    this.exerciseSubs.unsubscribe();  
-    //this.loadingSubs.unsubscribe();
+    if(this.exerciseSubs)
+    {
+      this.exerciseSubs.unsubscribe();  
+    }
   }
+
 }
 

@@ -18,13 +18,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuth : boolean = false;
   authSubscription: Subscription; 
 
-  ngOnInit() {
+  ngOnInit()
+  {
     this.authSubscription = this.authser.authChange.subscribe( authStatus => {
       this.isAuth = authStatus;
     })
   }
 
-  toggleOnCLick(){
+  toggleOnCLick()
+  {
     this.sideNavTog.emit(); 
   }
 
@@ -32,8 +34,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authser.logout();
   }
 
-  ngOnDestroy(){
-    this.authSubscription.unsubscribe();
+  ngOnDestroy()
+  {
+    if(this.authSubscription)
+    {
+      this.authSubscription.unsubscribe();
+    }
   }
 
 }

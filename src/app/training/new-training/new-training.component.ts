@@ -48,15 +48,22 @@ export class NewTrainingComponent implements OnInit {
     // });
   }
 
-  ngOnDestroy() 
-  {
-    this.exerciseSubs.unsubscribe();
-    this.loadingSubs.unsubscribe();
-  }
-
   retry()
   {
     this.trainser.getAvailableExercises();
+  }
+
+  ngOnDestroy() 
+  {
+    if(this.exerciseSubs)
+    {
+      this.exerciseSubs.unsubscribe();
+    }
+
+    if(this.loadingSubs)
+    {
+      this.loadingSubs.unsubscribe();
+    }
   }
 
 }

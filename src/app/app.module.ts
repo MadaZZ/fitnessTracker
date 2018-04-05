@@ -26,11 +26,14 @@ import { TrainingComponent } from './training/training.component';
 import { CurrentTrainingComponent } from './training/current-training/current-training.component';
 import { NewTrainingComponent } from './training/new-training/new-training.component';
 import { PastTrainingComponent } from './training/past-training/past-training.component';
-import { AppRoutingModule } from './/app-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { StopTrainingComponent } from './training/current-training/stop-training/stop-training.component';
+
+//Routing
+import { AppRoutingModule } from './app-routing.module';
+import { TrainingRoutingModule } from './training/training-routing/training-routing.module';
 
 
 @NgModule({
@@ -56,7 +59,8 @@ import { StopTrainingComponent } from './training/current-training/stop-training
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    TrainingRoutingModule
   ],
   providers: [
     AuthService,

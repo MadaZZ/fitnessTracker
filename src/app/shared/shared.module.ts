@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 @NgModule({
   imports: [
@@ -12,16 +11,14 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     FormsModule,
     MaterialModule,
     FlexLayoutModule,
-    AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFireAuthModule
   ],
   exports: [
     CommonModule,
     FormsModule,
     MaterialModule,
     FlexLayoutModule,
-    AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFireAuthModule
   ]
 })
 export class SharedModule { }

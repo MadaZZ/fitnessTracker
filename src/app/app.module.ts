@@ -14,6 +14,7 @@ import { UIService } from './shared/ui.service';
 
 //angularfire2 modules 
 import { AngularFireModule } from 'angularfire2';//imported angularfire to connect to firebase
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
 
 //All the components created are below
@@ -27,7 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 //Modules that store components
 import { AuthModule } from './auth/auth.module'; //Has the components of login and signup
-import { TrainingModule } from './training/training.module'; //Has all the training components
+//import { TrainingModule } from './training/training.module'; //Has all the training components
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { TrainingModule } from './training/training.module'; //Has all the train
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
     AuthModule,
-    TrainingModule
+    AngularFirestoreModule
   ],
   providers: [
     AuthService,

@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';/
 import { MaterialModule } from './material.module';// CONTAINS ALL MATERIAL MODULES 
 
 import { FlexLayoutModule } from '@angular/flex-layout';//for using flexlayout
-import { FormsModule } from '@angular/forms'//to import reactive form
+//import { FormsModule } from '@angular/forms'//to import reactive form
 
 //services
 import { AuthService } from './auth/auth.service';
@@ -20,12 +20,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';//importing auth
 
 //All the components created are below
 import { AppComponent } from './app.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { LoginComponent } from './auth/login/login.component';
-import { TrainingComponent } from './training/training.component';
-import { CurrentTrainingComponent } from './training/current-training/current-training.component';
-import { NewTrainingComponent } from './training/new-training/new-training.component';
-import { PastTrainingComponent } from './training/past-training/past-training.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
@@ -33,22 +27,18 @@ import { StopTrainingComponent } from './training/current-training/stop-training
 
 //Routing
 import { AppRoutingModule } from './app-routing.module';
-import { TrainingRoutingModule } from './training/training-routing/training-routing.module';
+
+//Modules that store components
+import { AuthModule } from './auth/auth.module'; //Has the components of login and signup
+import { TrainingModule } from './training/training.module'; //Has all the training components
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignupComponent,
-    LoginComponent,
-    TrainingComponent,
-    CurrentTrainingComponent,
-    NewTrainingComponent,
-    PastTrainingComponent,
     WelcomeComponent,
     HeaderComponent,
-    SidenavListComponent,
-    StopTrainingComponent
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
@@ -56,11 +46,11 @@ import { TrainingRoutingModule } from './training/training-routing/training-rout
     MaterialModule,
     AppRoutingModule,
     FlexLayoutModule,
-    FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    TrainingRoutingModule
+    AuthModule,
+    TrainingModule
   ],
   providers: [
     AuthService,
@@ -68,7 +58,6 @@ import { TrainingRoutingModule } from './training/training-routing/training-rout
     UIService
     
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [StopTrainingComponent]//This component is not called by routing or diplayed in any other component so it has to be indicated to angular//Used in Dialog in current-excersise
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

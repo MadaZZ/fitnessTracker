@@ -1,4 +1,12 @@
 # FitnessTracker
+This is a Fitness Tracker application. Allows the user to record exercises they do and keep a count of calories.
+[Link to LIVE](https://angular-fitnesstracker.firebaseapp.com)
+
+## Built Using - 
+1. [Angular 5](https://angular.io/) - Frontend Framework
+2. [Firebase 4](https://firebase.google.com/) - DataBase and Hosting
+3. [Angular Material 2](https://material.angular.io/) - UI Components
+4. [Flex Layout](https://github.com/angular/flex-layout) - Responsive API
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5.
 

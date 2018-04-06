@@ -7,7 +7,7 @@
       <mat-card-content fxLayoutAlign="center"> 
         <mat-form-field *ngIf=" !isLoading && exerciseList " fxLayoutAlign="center">
 
-          <mat-select placeholder="Choose Excersise" ngModel name="exercise" required>
+          <mat-select placeholder="Choose Exercise" ngModel name="exercise" required>
             
             <mat-option *ngFor=" let exercise of exerciseList " [value]="exercise.id">
               {{ exercise.name }}

@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Exercise } from './exercise.model';
 import { Subject } from 'rxjs/Subject';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Subscription } from 'rxjs';
-//import { Observable } from 'rxjs';
 import { UIService } from '../shared/ui.service';
+import { AngularFireAuth } from 'angularfire2/auth'; 
 
 @Injectable()
-export class TrainingService {
+export class TrainingService implements OnInit {
   exerciseChanged = new Subject<Exercise>();
   exercisesChanged = new Subject<Exercise[]>(); //Gets the exercises that are already defined to show on new-training option
   finishedExerciseChanged = new Subject<Exercise[]>(); //array of finished exercises
@@ -17,16 +17,23 @@ export class TrainingService {
   private availableExercises : Exercise[] = [];//array of exercises that can be selected
   private runningExcercise: Exercise;
   
+  private myuserID : string;
 
   constructor( 
     private db: AngularFirestore,
-    private uiSer: UIService
+    private uiSer: UIService,
+    private afAuth: AngularFireAuth
    ) { }
+   
+   ngOnInit(): void { 
+   }
 
+   
   getStoredExercises(){ //Gets finished exercises
     this.uiSer.loadingStateChange.next(true);
+    const loggedInUserId = this.afAuth.auth.currentUser.email;
     this.fbsubs.push(this.db
-    .collection('finishedExercises')
+    .collection(loggedInUserId+'finishedExercises')
     .valueChanges() //--> Gives only values not the names
     .subscribe( (exercises: Exercise[]) => {
       //console.log(exercises);
@@ -110,7 +117,8 @@ export class TrainingService {
   //Function to add data to db
   private addDataToDatabase(exercise: Exercise)
   {
-    this.db.collection('finishedExercises').add(exercise);
+    const loggedInUserId = this.afAuth.auth.currentUser.email;
+    this.db.collection(loggedInUserId+'finishedExercises').add(exercise);
   }
 
 }

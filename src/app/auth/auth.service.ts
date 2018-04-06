@@ -61,6 +61,11 @@ export class AuthService {
   {
     return this.isAuthenticated;
   }
+
+  getUID()
+  {
+    return this.afauth.auth.currentUser.uid;
+  }
   
   initAuthListener()
   {

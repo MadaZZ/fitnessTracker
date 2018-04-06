@@ -1,6 +1,6 @@
 # FitnessTracker
 This is a Fitness Tracker application. Allows the user to record exercises they do and keep a count of calories.
-[Link to LIVE](https://angular-fitnesstracker.firebaseapp.com)
+# [Link to LIVE](https://angular-fitnesstracker.firebaseapp.com)
 
 ## Built Using - 
 1. [Angular 5](https://angular.io/) - Frontend Framework

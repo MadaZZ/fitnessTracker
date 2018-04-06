@@ -5,14 +5,12 @@ import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs/Subject';
 import { AngularFireAuth } from 'angularfire2/auth'; 
 import { TrainingService } from '../training/training.service';
-//import { MatSnackBar } from '@angular/material';// to add snackbar //Using in uiservice
 import { UIService } from '../shared/ui.service';
 
 @Injectable()
 export class AuthService {
   
   private isAuthenticated = false ;
-  //private snackbar: MatSnackBar;
   
   authChange = new Subject<boolean>();//Sends data onChange
 
@@ -20,7 +18,6 @@ export class AuthService {
     private router: Router,
     private afauth: AngularFireAuth, 
     private trainSer: TrainingService,
-   // private snackbar: MatSnackBar, //Using in uiservice
     private uiSer: UIService
    ) { }
   
@@ -81,5 +78,6 @@ export class AuthService {
       }
     });
   }
+
 
 }

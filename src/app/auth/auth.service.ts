@@ -19,7 +19,7 @@ export class AuthService {
     private afauth: AngularFireAuth, 
     private trainSer: TrainingService,
     private uiSer: UIService
-   ) { }
+   ) { }  
   
   registerUser(authdata: AuthData)
   {
@@ -28,7 +28,7 @@ export class AuthService {
     .auth.createUserWithEmailAndPassword(
       authdata.email, 
       authdata.password
-    ).then(res => {
+    ).then(res => { 
         console.log(res);
         this.uiSer.loadingStateChange.next(false);
       })

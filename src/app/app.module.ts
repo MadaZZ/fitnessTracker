@@ -30,6 +30,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module'; //Has the components of login and signup
 //import { TrainingModule } from './training/training.module'; //Has all the training components
 
+import { StoreModule } from '@ngrx/store';
+import { appReducer } from './app.reducer';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +50,8 @@ import { AuthModule } from './auth/auth.module'; //Has the components of login a
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
     AuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    StoreModule.forRoot({ui: appReducer})
   ],
   providers: [
     AuthService,

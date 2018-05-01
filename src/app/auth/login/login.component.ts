@@ -4,6 +4,11 @@ import { AuthService } from '../auth.service';
 import { UIService } from '../../shared/ui.service';
 import { Subscription } from 'rxjs/Subscription';
 
+//To add state management
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../app.reducer';// to import anythin from the given file path
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +22,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authser: AuthService,
-    private uiSer: UIService
+    private uiSer: UIService,
+    private store: Store< {ui: fromApp.State} >
   ) { }
 
   ngOnInit()

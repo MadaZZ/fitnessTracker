@@ -29,37 +29,37 @@ export class AuthService {
   
   registerUser(authdata: AuthData)
   {
-    //this.uiSer.loadingStateChange.next(true);
-    this.store.dispatch({ type: 'START_LOADING' });
+    this.uiSer.loadingStateChange.next(true);
+    //this.store.dispatch({ type: 'START_LOADING' });
     this.afauth
     .auth.createUserWithEmailAndPassword(
       authdata.email, 
       authdata.password
     ).then(res => { 
         //console.log(res);
-        //this.uiSer.loadingStateChange.next(false);
-        this.store.dispatch({ type: 'STOP_LOADING' });
+        this.uiSer.loadingStateChange.next(false);
+        //this.store.dispatch({ type: 'STOP_LOADING' });
       })
       .catch( err=> {
-        //this.uiSer.loadingStateChange.next(false);
-        this.store.dispatch({ type: 'STOP_LOADING' });
+        this.uiSer.loadingStateChange.next(false);
+        //this.store.dispatch({ type: 'STOP_LOADING' });
         this.uiSer.showSnackbar(err.message, 'Dismiss', 4000);
       });
   }
 
   login(authdata: AuthData )
   {
-    // this.uiSer.loadingStateChange.next(true);
-    this.store.dispatch({ type: 'START_LOADING' });
+    this.uiSer.loadingStateChange.next(true);
+    //this.store.dispatch({ type: 'START_LOADING' });
     this.afauth
     .auth.signInWithEmailAndPassword(authdata.email, authdata.password).then(res => {
       //console.log(res);
-      // this.uiSer.loadingStateChange.next(false);
-      this.store.dispatch({ type: 'STOP_LOADING' });
+      this.uiSer.loadingStateChange.next(false);
+      // this.store.dispatch({ type: 'STOP_LOADING' });
     })
     .catch( err=> {
-      // this.uiSer.loadingStateChange.next(false);
-      this.store.dispatch({ type: 'STOP_LOADING' });
+      this.uiSer.loadingStateChange.next(false);
+      //this.store.dispatch({ type: 'STOP_LOADING' });
       this.uiSer.showSnackbar(err.message, 'Dismiss', 4000);
     });
   }

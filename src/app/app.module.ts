@@ -57,7 +57,6 @@ import { appReducer } from './app.reducer';
     AuthService,
     TrainingService,
     UIService
-    
   ],
   bootstrap: [AppComponent]
 })
